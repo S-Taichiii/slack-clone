@@ -1,12 +1,12 @@
 import React from 'react'
 import ChatList from './ChatContainer/ChatList'
-import ChatArea from './ChatContainer/ChatArea'
+import MessageArea from './ChatContainer/MessageArea'
 
 function ChatContainer() {
   return (
     <div className='flex flex-grow h-screen'>
         <ChatList />
-        <ChatArea />
+        <MessageArea />
     </div>
   )
 }
