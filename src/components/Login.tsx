@@ -1,18 +1,20 @@
 import React from 'react'
 import { signInWithGoogle } from '../features/auth/Auth'
 import { getUser } from '../features/user/userAPI'
+import { useAppDispatch } from '../app/hooks'
+import { googleSignInAndUserSetup, login } from '../features/user/userSlice';
 
 function Login() {
-    const getUserInfo = async () => {
-        try {
-            const user = await getUser('BdlEWzvrWMsJSvg3KmJD');
+    const dispatch = useAppDispatch();
 
-            if (user) {
-                console.log(user);
+    const loginWithGoogle = () => {
+        googleSignInAndUserSetup().then(
+            (userId) => {
+                if (userId) {
+                    dispatch(login(userId))
+                }
             }
-        } catch (error) {
-            console.log('Login failed', error);
-        }
+        )
     }
 
     return (
@@ -23,7 +25,7 @@ function Login() {
                         <h1 className='text-3xl text-center text-gray-700 mt-4' >Slackにログイン</h1>
                     </div>
                     <div className='flex items-center justify-center'>
-                        <button className='bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline' onClick={getUserInfo}>ログイン</button>'
+                        <button className='bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline' onClick={loginWithGoogle}>ログイン</button>'
                     </div>
                 </div>
             </div>
