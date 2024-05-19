@@ -39,7 +39,7 @@ function SideBar() {
         </div>
         <div className='py-5 px-2 mt-auto flex flex-col items-center'>
             <div className='bg-gray-700 p-2 rounded-lg'>
-                <img src='./default-user-icon.png' alt='' />
+                <img src={user?.profile_picture || './default-user-icon.png'} alt='' />
             </div>
             <span className='text-xs'>{user?.displayName}</span>
         </div>
