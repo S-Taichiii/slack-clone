@@ -3,6 +3,7 @@ import { Home, ChatBubble } from "@mui/icons-material";
 import { useAppSelector } from '../app/hooks';
 import {User} from "../type/User";
 import { getUser } from '../features/user/userAPI';
+import { signOut } from '../features/auth/Auth';
 
 
 function SideBar() {
@@ -39,7 +40,8 @@ function SideBar() {
         </div>
         <div className='py-5 px-2 mt-auto flex flex-col items-center'>
             <div className='bg-gray-700 p-2 rounded-lg'>
-                <img src={user?.profile_picture || './default-user-icon.png'} alt='' />
+                {/* プロフィール画像をクリックするだけでログアウト処理を行う */}
+                <img src={user?.profile_picture || './default-user-icon.png'} alt='' onClick={signOut} />
             </div>
             <span className='text-xs'>{user?.displayName}</span>
         </div>
