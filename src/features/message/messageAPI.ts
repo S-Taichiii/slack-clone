@@ -68,3 +68,13 @@ export const createMessage = (
 export const deleteMessage = async (messageRef: MessageRef) => {
   await deleteDoc(doc(db, "messages", messageRef.id));
 };
+
+export const editMessage = async (messageRef: MessageRef, newText: string) => {
+  const timestamp = Timestamp.fromDate(new Date());
+
+  await updateDoc(doc(db, "messages", messageRef.id), {
+    is_edited: true,
+    text: newText,
+    update_at: timestamp,
+  });
+};

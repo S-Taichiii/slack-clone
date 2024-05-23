@@ -3,6 +3,8 @@ import { Message, MessageRef } from "../../type/Message";
 import { User } from "../../type/User";
 import { getUser } from "../../features/user/userAPI";
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import MessageEditModal from "./MessageEditModal";
 
 interface MessageTileProps {
     messageRef: MessageRef;
@@ -10,8 +12,9 @@ interface MessageTileProps {
 }
 
 
-const MessageTile: React.FC<MessageTileProps> = ({ messageRef, onButtonClick}) => {
+const MessageTile = ({ messageRef, onButtonClick}: MessageTileProps) => {
     const [owner, setUser] = useState<User | null>(null);
+    const [showModal, setShowModal] = useState<boolean>(false);
     
     useEffect(() => {
         const fetchUser = async () => {
@@ -27,6 +30,14 @@ const MessageTile: React.FC<MessageTileProps> = ({ messageRef, onButtonClick}) =
         
         fetchUser();
     }, []);
+    
+    const handleOpenModal = () => {
+        setShowModal(true);
+    }
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+    }
 
   return (
         <div className='bg-gray-700 p-3 m-3 rounded-lg flex justify-between'>
@@ -45,6 +56,12 @@ const MessageTile: React.FC<MessageTileProps> = ({ messageRef, onButtonClick}) =
                 <p className='text-gray-300'>{messageRef.message.text}</p>
             </div>
             <div className="flex items-center justify-center">
+                <button className="w-10 h-10 p-2 hover:bg-gray-600 rounded-full" onClick={handleOpenModal}>
+                    <EditIcon />
+                </button>
+                {
+                    showModal && <MessageEditModal messageRef={messageRef} handleCloseModal={handleCloseModal} />
+                }
                 <button className="w-10 h-10 p-2 hover:bg-gray-600 rounded-full" onClick={() => onButtonClick(messageRef)}>
                     <DeleteIcon  />
                 </button>
