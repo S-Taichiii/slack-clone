@@ -5,7 +5,6 @@ import {User} from "../type/User";
 import { getUser } from '../features/user/userAPI';
 import { signOut } from '../features/auth/Auth';
 
-
 function SideBar() {
     const userId = useAppSelector((state) => state.user.userId);
     const [user, setUser] = useState<User | null>();

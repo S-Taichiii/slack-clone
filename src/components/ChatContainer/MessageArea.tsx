@@ -3,7 +3,7 @@ import { TextareaAutosize } from '@mui/base/TextareaAutosize';
 import SendIcon from '@mui/icons-material/Send';
 import { MessageRef } from '../../type/Message';
 import { useAppSelector } from '../../app/hooks';
-import { createMessage, subscribeMessage, postMessage } from '../../features/message/messageAPI';
+import { createMessage, subscribeMessage, postMessage, deleteMessage } from '../../features/message/messageAPI';
 import MessageTile from './MessageTile';
 
 function MessageArea() {
@@ -44,6 +44,13 @@ function MessageArea() {
     };
   }, [channelId]);
 
+  const handleDelete = (messageRef: MessageRef) => {
+    const userConfirmed = window.confirm("本当に削除しますか?");
+    if (userConfirmed) {
+      deleteMessage(messageRef);
+    }
+  }
+
 
   return (
     <div className='flex-1 flex flex-col bg-gray-500 text-white'>
@@ -51,7 +58,7 @@ function MessageArea() {
       </div>
         {
           messageRefs.map((messageRef) => (
-            <MessageTile message={messageRef.message} key={messageRef.id} />
+            <MessageTile messageRef={messageRef} onButtonClick={() => handleDelete(messageRef)} key={messageRef.id} />
           ))
         }
       <div className='mt-auto px-4 py-2 bottom-0 bg-gray-900'>

@@ -2,9 +2,12 @@ import {
   Timestamp,
   addDoc,
   collection,
+  deleteDoc,
+  doc,
   getFirestore,
   onSnapshot,
   query,
+  updateDoc,
   where,
 } from "firebase/firestore";
 import { firebaseApp } from "../../firebase/firebaseconfig";
@@ -60,4 +63,8 @@ export const createMessage = (
     is_edited: false,
     update_at: timestamp,
   };
+};
+
+export const deleteMessage = async (messageRef: MessageRef) => {
+  await deleteDoc(doc(db, "messages", messageRef.id));
 };
