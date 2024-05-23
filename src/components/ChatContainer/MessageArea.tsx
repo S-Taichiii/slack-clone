@@ -54,10 +54,10 @@ function MessageArea() {
             <MessageTile message={messageRef.message} key={messageRef.id} />
           ))
         }
-      <div className='px-4 py-2 bottom-0 bg-gray-900'>
+      <div className='mt-auto px-4 py-2 bottom-0 bg-gray-900'>
         <div className='flex items-center'>
           <TextareaAutosize
-            placeholder='# random へメッセージを入力'
+            placeholder='メッセージを入力'
             className='flex-1 bg-gray-700 text-white p-2 mx-2 rounded-lg focus:outline-none'
             onChange={handleInputChange}
             onKeyDown={handleKeyDown}
